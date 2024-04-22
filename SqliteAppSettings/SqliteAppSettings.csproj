@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="UserRole.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="State.sql" />
+    <EmbeddedResource Include="Config.sql" />
+    <EmbeddedResource Include="UserRole.sql" />
+    <EmbeddedResource Include="Users.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SQLite\SQLite.csproj" />
+    <ProjectReference Include="..\Tools\Tools.csproj" />
+  </ItemGroup>
+
+</Project>
