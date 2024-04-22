@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SQLite\SQLite.csproj" />
-    <ProjectReference Include="..\Tools\Tools.csproj" />
   </ItemGroup>
 
 </Project>
