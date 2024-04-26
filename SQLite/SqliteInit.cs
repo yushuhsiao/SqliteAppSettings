@@ -6,6 +6,8 @@ namespace System.Data.SQLite
 {
     public static class SQLiteInit
     {
+        public static string DataPath { get; set; } = "Data";
+
         /// <summary>
         /// 從指定的 assembly 取得初始化 script
         /// </summary>
@@ -50,7 +52,12 @@ namespace System.Data.SQLite
         {
             string path;
             if (basedir == null)
-                path = Path.Combine(Environment.CurrentDirectory, "Data", filename);
+            {
+                if (string.IsNullOrEmpty(DataPath))
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                else
+                    path = Path.Combine(Environment.CurrentDirectory, "Data", filename);
+            }
             else
                 path = Path.Combine(basedir, filename);
             string cn = $"URI=file:{path};";
