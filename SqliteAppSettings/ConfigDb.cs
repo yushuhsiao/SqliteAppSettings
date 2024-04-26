@@ -15,6 +15,11 @@ namespace Leader.Services
     {
         private object _sync = new object();
         public static string FileName = "data.db";
+        public static string DataPath
+        {
+            get => SQLiteInit.DataPath;
+            set => SQLiteInit.DataPath = value;
+        }
         private static object init = new object();
         private static ConfigDb instance;
         public static ConfigDb Instance
