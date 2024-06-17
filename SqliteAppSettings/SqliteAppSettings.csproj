@@ -1,22 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageOutputPath>..\..\nupkg</PackageOutputPath>
+		<Version>1.0.1</Version>
+		<Authors>Leader</Authors>
+		<Description>SqliteAppSettings</Description>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="UserRole.sql" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="UserRole.sql" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="State.sql" />
-    <EmbeddedResource Include="Config.sql" />
-    <EmbeddedResource Include="UserRole.sql" />
-    <EmbeddedResource Include="Users.sql" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\SQLite\SqliteInit.cs" Link="SqliteInit.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SQLite\SQLite.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="State.sql" />
+		<EmbeddedResource Include="Config.sql" />
+		<EmbeddedResource Include="UserRole.sql" />
+		<EmbeddedResource Include="Users.sql" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
+		<PackageReference Include="Tools" Version="2024.5.20" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="$(OutputPath)\SqliteAppSettings.pdb">
+			<Pack>true</Pack>
+			<PackagePath>lib\$(TargetFramework)</PackagePath>
+		</Content>
+		<None Include="Data\SQLiteSpy.exe">
+			<Pack>true</Pack>
+			<IsAssembly>false</IsAssembly>
+		</None>
+	</ItemGroup>
 
 </Project>

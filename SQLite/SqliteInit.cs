@@ -61,6 +61,9 @@ namespace System.Data.SQLite
             else
                 path = Path.Combine(basedir, filename);
             string cn = $"URI=file:{path};";
+            string dir = Path.GetDirectoryName(path);
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
             SQLiteConnection conn = new SQLiteConnection(cn, parseViaFramework: true);
             conn.Open();
             return conn;
