@@ -34,10 +34,6 @@
 			<Pack>true</Pack>
 			<PackagePath>lib\$(TargetFramework)</PackagePath>
 		</Content>
-		<None Include="Data\SQLiteSpy.exe">
-			<Pack>true</Pack>
-			<IsAssembly>false</IsAssembly>
-		</None>
 	</ItemGroup>
 
 </Project>

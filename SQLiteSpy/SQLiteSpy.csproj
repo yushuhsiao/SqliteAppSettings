@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageOutputPath>..\..\nupkg</PackageOutputPath>
+		<Version>1.0.0</Version>
+		<Authors>Leader</Authors>
+		<Description>SQLiteSpy</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="Data\SQLiteSpy.exe">
+			<Pack>true</Pack>
+			<IsAssembly>false</IsAssembly>
+		</None>
+	</ItemGroup>
+
+</Project>
