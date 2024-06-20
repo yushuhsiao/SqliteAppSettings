@@ -4,17 +4,13 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageOutputPath>..\..\nupkg</PackageOutputPath>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<Authors>Leader</Authors>
 		<Description>SqliteAppSettings</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<None Remove="UserRole.sql" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Include="..\SQLite\SqliteInit.cs" Link="SqliteInit.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -25,6 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="SQLite" Version="1.0.1" />
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
 		<PackageReference Include="Tools" Version="2024.5.20" />
 	</ItemGroup>

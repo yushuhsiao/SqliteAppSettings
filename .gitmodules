@@ -1,0 +1,3 @@
+[submodule "nupkg"]
+	path = nupkg
+	url = http://192.168.192.2:3000/Leader/nupkg.git
