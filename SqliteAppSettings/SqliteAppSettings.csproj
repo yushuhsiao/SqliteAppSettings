@@ -2,12 +2,18 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageOutputPath>..\..\nupkg</PackageOutputPath>
 		<Version>1.0.2</Version>
 		<Authors>Leader</Authors>
 		<Description>SqliteAppSettings</Description>
 	</PropertyGroup>
+	<Choose>
+		<When Condition=" '$(Configuration)'=='Release' ">
+			<PropertyGroup>
+				<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+				<PackageOutputPath>..\..\nupkg</PackageOutputPath>
+			</PropertyGroup>
+		</When>
+	</Choose>
 
 	<ItemGroup>
 		<None Remove="UserRole.sql" />

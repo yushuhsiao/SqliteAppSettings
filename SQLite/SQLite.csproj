@@ -3,12 +3,18 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<RootNamespace>System.Data.SQLite</RootNamespace>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageOutputPath>..\..\nupkg</PackageOutputPath>
 		<Version>1.0.1</Version>
 		<Authors>Leader</Authors>
 		<Description>SQLite</Description>
 	</PropertyGroup>
+	<Choose>
+		<When Condition=" '$(Configuration)'=='Release' ">
+			<PropertyGroup>
+				<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+				<PackageOutputPath>..\..\nupkg</PackageOutputPath>
+			</PropertyGroup>
+		</When>
+	</Choose>
 
 	<ItemGroup>
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
