@@ -3,9 +3,9 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<RootNamespace>System.Data.SQLite</RootNamespace>
-		<Version>1.0.1</Version>
 		<Authors>Leader</Authors>
 		<Description>SQLite</Description>
+		<Version>2024.07.04</Version>
 	</PropertyGroup>
 	<Choose>
 		<When Condition=" '$(Configuration)'=='Release' ">
@@ -18,7 +18,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
-		<PackageReference Condition=" '$(Configuration)'=='Release' " Include="Tools" Version="2024.5.20" />
+		<PackageReference Condition=" '$(Configuration)'=='Release' " Include="Tools" Version="2024.7.4" />
 		<ProjectReference Condition=" '$(Configuration)'=='Debug' " Include="..\..\Tools\Tools.csproj" />
 	</ItemGroup>
 
