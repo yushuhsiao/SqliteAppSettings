@@ -5,7 +5,7 @@
 		<RootNamespace>System.Data.SQLite</RootNamespace>
 		<Authors>Leader</Authors>
 		<Description>SQLite</Description>
-		<Version>2024.07.04</Version>
+		<Version>2024.07.16</Version>
 	</PropertyGroup>
 	<Choose>
 		<When Condition=" '$(Configuration)'=='Release' ">
@@ -18,15 +18,15 @@
 
 	<ItemGroup>
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
-		<PackageReference Condition=" '$(Configuration)'=='Release' " Include="Tools" Version="2024.7.4" />
+		<PackageReference Condition=" '$(Configuration)'=='Release' " Include="Tools" Version="2024.7.16" />
 		<ProjectReference Condition=" '$(Configuration)'=='Debug' " Include="..\..\Tools\Tools.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="$(OutputPath)\SQLite.pdb">
+		<None Include="$(OutputPath)\SQLite.pdb">
 			<Pack>true</Pack>
 			<PackagePath>lib\$(TargetFramework)</PackagePath>
-		</Content>
+		</None>
 	</ItemGroup>
 
 </Project>
