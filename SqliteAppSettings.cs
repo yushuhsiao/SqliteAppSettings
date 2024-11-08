@@ -56,6 +56,7 @@ namespace Microsoft.Extensions.Configuration
         {
             try
             {
+                Data.Clear();
                 foreach (var row in ConfigDb.Instance.ReadConfig())
                 {
                     if (string.IsNullOrEmpty(row.Key1))
