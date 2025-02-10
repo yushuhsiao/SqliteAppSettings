@@ -7,11 +7,18 @@
 		<Version>2025.01.20</Version>
 	</PropertyGroup>
 	<Choose>
-		<When Condition=" '$(Configuration)'=='Release' ">
+		<When Condition=" '$(Configuration)'=='Release' AND '$(SolutionName)'=='libs' ">
 			<PropertyGroup>
 				<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 				<PackageOutputPath>..\nupkg</PackageOutputPath>
 			</PropertyGroup>
+
+			<ItemGroup>
+				<Content Include="$(OutputPath)\SqliteAppSettings.pdb">
+					<Pack>true</Pack>
+					<PackagePath>lib\$(TargetFramework)</PackagePath>
+				</Content>
+			</ItemGroup>
 		</When>
 	</Choose>
 
@@ -30,13 +37,6 @@
 		<PackageReference Condition=" '$(Configuration)'=='Release' " Include="SQLite" Version="2025.1.20" />
 		<ProjectReference Condition=" '$(Configuration)'=='Debug' " Include="..\SQLite\SQLite.csproj" />
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="$(OutputPath)\SqliteAppSettings.pdb">
-			<Pack>true</Pack>
-			<PackagePath>lib\$(TargetFramework)</PackagePath>
-		</Content>
 	</ItemGroup>
 
 </Project>
