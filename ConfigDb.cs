@@ -111,6 +111,8 @@ namespace Leader.Entity
     {
         public string Key1 { get; set; }
         public string Key2 { get; set; }
+        public int Index1 { get; set; }
+        public int Index2 { get; set; }
         public string Value { get; set; }
     }
 }

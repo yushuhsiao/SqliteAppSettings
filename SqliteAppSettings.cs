@@ -59,10 +59,13 @@ namespace Microsoft.Extensions.Configuration
                 Data.Clear();
                 foreach (var row in ConfigDb.Instance.ReadConfig())
                 {
-                    if (string.IsNullOrEmpty(row.Key1))
-                        Data[row.Key2] = row.Value;
-                    else
-                        Data[$"{row.Key1}:{row.Key2}"] = row.Value;
+                    string key = AppSettingBinder.BuildKey(row.Key1, row.Key2, 0, 0);
+                    //string key2;
+                    //if (string.IsNullOrEmpty(row.Key1))
+                    //    key2 = row.Key2;
+                    //else
+                    //    key2 = $"{row.Key1}:{row.Key2}";
+                    Data[key] = row.Value;
                 }
             }
             catch { }
