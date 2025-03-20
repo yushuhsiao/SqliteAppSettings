@@ -114,5 +114,7 @@ namespace Leader.Entity
         public int Index1 { get; set; }
         public int Index2 { get; set; }
         public string Value { get; set; }
+
+        public ConfigRow Clone() => (ConfigRow)base.MemberwiseClone();
     }
 }

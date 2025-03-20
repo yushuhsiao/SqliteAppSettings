@@ -4,7 +4,7 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<Authors>Leader</Authors>
 		<Description>SqliteAppSettings</Description>
-		<Version>2025.03.18</Version>
+		<Version>2025.03.20</Version>
 	</PropertyGroup>
 	<Choose>
 		<When Condition=" '$(Configuration)'=='Release' AND '$(SolutionName)'=='libs' ">
