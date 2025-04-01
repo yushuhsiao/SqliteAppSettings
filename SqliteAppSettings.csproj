@@ -40,7 +40,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
-		<PackageReference Condition=" '$(Configuration)'=='Release' " Include="Tools" Version="2025.3.18" />
+		<PackageReference Condition=" '$(Configuration)'=='Release' " Include="Tools" Version="2025.4.1" />
 		<ProjectReference Condition=" '$(Configuration)'=='Debug' " Include="..\Tools\Tools.csproj" />
 	</ItemGroup>
 
