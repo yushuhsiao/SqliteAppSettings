@@ -39,7 +39,7 @@ namespace Leader.Services
         public ConfigDb()
         {
             Init();
-        } 
+        }
 
         private void Init()
         {
@@ -77,51 +77,56 @@ ON CONFLICT(Key1, Key2) DO UPDATE SET Value = @Value";
 
             lock (_sync)
                 using (var db = this._OpenDb())
-                    db.Execute(sql, row);
+                using (var tran = db.BeginTransaction())
+                {
+                    tran.Execute(sql, row);
+                    tran.Commit();
+                }
             UpdateVersion();
         }
 
         public Entity.ConfigRow UpdateRow(Entity.ConfigRow row, Entity.ConfigRow old = null)
         {
             if (row == null) return row;
-            using (var db = this._OpenDb())
-            using (var tran = db.BeginTransaction())
-            {
-                Entity.ConfigRow r;
-                if (old == null)
+            lock (_sync)
+                using (var db = this._OpenDb())
+                using (var tran = db.BeginTransaction())
                 {
-                    r = tran.QueryFirst<Entity.ConfigRow>($@"
+                    Entity.ConfigRow r;
+                    if (old == null)
+                    {
+                        r = tran.QueryFirst<Entity.ConfigRow>($@"
 INSERT INTO {TableName<Entity.ConfigRow>.Value}
        ( Key1, Key2, Value)
 VALUES (@Key1,@Key2,@Value);
 SELECT * FROM {TableName<Entity.ConfigRow>.Value}
 WHERE Key1 = @Key1 AND Key2 = @Key2;", row);
-                }
-                else
-                {
-                    r = tran.QueryFirst<Entity.ConfigRow>($@"UPDATE {TableName<Entity.ConfigRow>.Value} SET
+                    }
+                    else
+                    {
+                        r = tran.QueryFirst<Entity.ConfigRow>($@"UPDATE {TableName<Entity.ConfigRow>.Value} SET
     Key1 = @Key1,
     key2 = @Key2,
     Value = @Value
 WHERE Key1 = @Key1_ AND Key2 = @Key2_ ;
 SELECT * FROM {TableName<Entity.ConfigRow>.Value}
 WHERE Key1 = @Key1 AND Key2 = @Key2 ;", new
-                    {
-                        Key1 = row.Key1,
-                        Key2 = row.Key2,
-                        Index1 = row.Index1,
-                        Index2 = row.Index2,
-                        Value = row.Value,
-                        Key1_ = old.Key1,
-                        Key2_ = old.Key2,
-                        Index1_ = old.Index1,
-                        Index2_ = old.Index2,
-                    });
+                        {
+                            Key1 = row.Key1,
+                            Key2 = row.Key2,
+                            Index1 = row.Index1,
+                            Index2 = row.Index2,
+                            Value = row.Value,
+                            Key1_ = old.Key1,
+                            Key2_ = old.Key2,
+                            Index1_ = old.Index1,
+                            Index2_ = old.Index2,
+                        });
+                    }
+                    tran.Commit();
+                    UpdateVersion();
+                    return r;
                 }
-                tran.Commit();
-                UpdateVersion();
-                return r;
-            }
         }
 
         public void DeleteRow(Entity.ConfigRow row)
@@ -129,7 +134,10 @@ WHERE Key1 = @Key1 AND Key2 = @Key2 ;", new
             lock (_sync)
                 using (var db = this._OpenDb())
                 using (var tran = db.BeginTransaction())
+                {
                     tran.Execute($"delete from {TableName<Entity.ConfigRow>.Value} where Key1=@Key1 and Key2=@Key2", row);
+                    tran.Commit();
+                }
             UpdateVersion();
         }
 
