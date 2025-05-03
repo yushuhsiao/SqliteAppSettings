@@ -4,7 +4,7 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<Authors>Leader</Authors>
 		<Description>SqliteAppSettings</Description>
-		<Version>2025.04.03</Version>
+		<Version>2025.05.03</Version>
 	</PropertyGroup>
 	<Choose>
 		<When Condition=" '$(Configuration)'=='Release' AND '$(SolutionName)'=='libs' ">
@@ -40,7 +40,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
-		<PackageReference Condition=" '$(Configuration)'=='Release' " Include="Tools" Version="2025.4.1" />
+		<PackageReference Condition=" '$(Configuration)'=='Release' " Include="Tools" Version="2025.5.3" />
 		<ProjectReference Condition=" '$(Configuration)'=='Debug' " Include="..\Tools\Tools.csproj" />
 	</ItemGroup>
 
