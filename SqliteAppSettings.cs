@@ -2,9 +2,9 @@
     實作 Microsoft.Extensions.Configuration.IConfigurationSource 與 Microsoft.Extensions.Configuration.ConfigurationProvider
     由 db 取得設定值
 */
-using Leader.Services;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Data.SQLite;
 using System.Threading;
 
 

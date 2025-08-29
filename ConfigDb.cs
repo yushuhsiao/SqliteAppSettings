@@ -1,11 +1,9 @@
 ﻿using Dapper;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SQLite;
 using System.Linq;
 using System.Threading;
 
-namespace Leader.Services
+namespace System.Data.SQLite
 {
     // sqlite commands
     // select * from sqlite_master;
@@ -66,12 +64,12 @@ namespace Leader.Services
                     yield return db;
         }
 
-        public void UpdateRow(string key1, string key2, string value) => UpdateRow(new Entity.ConfigRow { Key1 = key1, Key2 = key2, Value = value });
+        public void UpdateRow(string key1, string key2, string value) => UpdateRow(new ConfigRow { Key1 = key1, Key2 = key2, Value = value });
 
-        public void UpdateRow(Entity.ConfigRow row)
+        public void UpdateRow(ConfigRow row)
         {
             string sql = $@"
-INSERT INTO {TableName<Entity.ConfigRow>.Value} (Key1, Key2, Value)
+INSERT INTO {TableName<ConfigRow>.Value} (Key1, Key2, Value)
 VALUES (@Key1, @Key2, @Value)
 ON CONFLICT(Key1, Key2) DO UPDATE SET Value = @Value";
 
@@ -85,31 +83,31 @@ ON CONFLICT(Key1, Key2) DO UPDATE SET Value = @Value";
             UpdateVersion();
         }
 
-        public Entity.ConfigRow UpdateRow(Entity.ConfigRow row, Entity.ConfigRow old = null)
+        public ConfigRow UpdateRow(ConfigRow row, ConfigRow old = null)
         {
             if (row == null) return row;
             lock (_sync)
                 using (var db = this._OpenDb())
                 using (var tran = db.BeginTransaction())
                 {
-                    Entity.ConfigRow r;
+                    ConfigRow r;
                     if (old == null)
                     {
-                        r = tran.QueryFirst<Entity.ConfigRow>($@"
-INSERT INTO {TableName<Entity.ConfigRow>.Value}
+                        r = tran.QueryFirst<ConfigRow>($@"
+INSERT INTO {TableName<ConfigRow>.Value}
        ( Key1, Key2, Value)
 VALUES (@Key1,@Key2,@Value);
-SELECT * FROM {TableName<Entity.ConfigRow>.Value}
+SELECT * FROM {TableName<ConfigRow>.Value}
 WHERE Key1 = @Key1 AND Key2 = @Key2;", row);
                     }
                     else
                     {
-                        r = tran.QueryFirst<Entity.ConfigRow>($@"UPDATE {TableName<Entity.ConfigRow>.Value} SET
+                        r = tran.QueryFirst<ConfigRow>($@"UPDATE {TableName<ConfigRow>.Value} SET
     Key1 = @Key1,
     key2 = @Key2,
     Value = @Value
 WHERE Key1 = @Key1_ AND Key2 = @Key2_ ;
-SELECT * FROM {TableName<Entity.ConfigRow>.Value}
+SELECT * FROM {TableName<ConfigRow>.Value}
 WHERE Key1 = @Key1 AND Key2 = @Key2 ;", new
                         {
                             Key1 = row.Key1,
@@ -129,23 +127,23 @@ WHERE Key1 = @Key1 AND Key2 = @Key2 ;", new
                 }
         }
 
-        public void DeleteRow(Entity.ConfigRow row)
+        public void DeleteRow(ConfigRow row)
         {
             lock (_sync)
                 using (var db = this._OpenDb())
                 using (var tran = db.BeginTransaction())
                 {
-                    tran.Execute($"delete from {TableName<Entity.ConfigRow>.Value} where Key1=@Key1 and Key2=@Key2", row);
+                    tran.Execute($"delete from {TableName<ConfigRow>.Value} where Key1=@Key1 and Key2=@Key2", row);
                     tran.Commit();
                 }
             UpdateVersion();
         }
 
-        public Entity.ConfigRow[] ReadConfig()
+        public ConfigRow[] ReadConfig()
         {
             lock (_sync)
                 using (var db = _OpenDb())
-                    return db.Query<Entity.ConfigRow>($"select * from {TableName<Entity.ConfigRow>.Value} order by Key1 asc, Key2 asc").ToArray();
+                    return db.Query<ConfigRow>($"select * from {TableName<ConfigRow>.Value} order by Key1 asc, Key2 asc").ToArray();
         }
 
         private int _version;
@@ -156,19 +154,5 @@ WHERE Key1 = @Key1 AND Key2 = @Key2 ;", new
         }
 
         private int UpdateVersion() => Interlocked.Increment(ref _version);
-    }
-}
-namespace Leader.Entity
-{
-    [TableName("Config")]
-    public class ConfigRow
-    {
-        public string Key1 { get; set; }
-        public string Key2 { get; set; }
-        public int Index1 { get; set; }
-        public int Index2 { get; set; }
-        public string Value { get; set; }
-
-        public ConfigRow Clone() => (ConfigRow)base.MemberwiseClone();
     }
 }

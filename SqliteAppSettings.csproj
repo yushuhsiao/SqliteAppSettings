@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
-		<Authors>Leader</Authors>
+		<Authors>System.Data.SQLite</Authors>
 		<Description>SqliteAppSettings</Description>
 		<Version>2025.05.03</Version>
 	</PropertyGroup>
