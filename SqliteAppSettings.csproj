@@ -23,16 +23,11 @@
 	</Choose>
 
 	<ItemGroup>
+		<None Remove="State.sql" />
 		<None Remove="UserRole.sql" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Include="..\SQLite\SqliteDateTime.cs" Link="SqliteDateTime.cs" />
-	  <Compile Include="..\SQLite\SqliteInit.cs" Link="SqliteInit.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Include="State.sql" />
 		<EmbeddedResource Include="Config.sql" />
 		<EmbeddedResource Include="UserRole.sql" />
 		<EmbeddedResource Include="Users.sql" />
